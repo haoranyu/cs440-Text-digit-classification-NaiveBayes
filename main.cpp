@@ -4,14 +4,16 @@
 
 int main(int argc, char* argv[])
 {
-	if (argc != 5){
+	if (argc != 6){
 		cout<< "Usuage: 5 arguments, the 1. executable followded by 2. training set, 3. training label, \
-		4. test set, 5. tes label " << endl;
+		4. test set, 5. tes label, 6. Number of Classe " << endl;
 		exit(1);
 	}
+	int nC = atoi(argv[5]);
+	cout<<"Number of Classe: " <<nC<<endl;
 
 	NBC nbc;
-
+	nbc.set_numClass(nC);
 	//Start get Input data
 	ifstream traindata(argv[1]);
 	ifstream trainlable(argv[2]);
@@ -73,6 +75,7 @@ int main(int argc, char* argv[])
 
 	nbc.Train(nbc.trainset, nbc.ltrain);
 
+	//nbc.Print_Ptable();
 	//nbc.check_Ptable();
 
 	nbc.Test(nbc.testset);
@@ -80,6 +83,14 @@ int main(int argc, char* argv[])
 	nbc.Print_confusionMatrix();
 
 	cout<<"total correct: " << nbc.totalCorrect << " , with ratio: " <<double(nbc.totalCorrect)/nbc.totalTest << endl;
+	nbc.confusionOutput(8, 9);
+	cout<<"\n\n"<<endl;
+	nbc.confusionOutput(7, 9);
+	cout<<"\n\n"<<endl;
+	nbc.confusionOutput(4, 9);
+	cout<<"\n\n"<<endl;
+	nbc.confusionOutput(5, 3);
+
 /*
 	int nlabel = nbc.pltest.size();
 
